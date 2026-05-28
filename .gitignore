@@ -1,0 +1,17 @@
+# Datos generados (sintéticos, no versionar)
+data/
+*.parquet
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Databricks / local
+.databricks/
+.databrickscfg
+.DS_Store
+*.log
+.env

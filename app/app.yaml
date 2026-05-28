@@ -1,0 +1,19 @@
+command:
+  - "uvicorn"
+  - "main:app"
+  - "--host"
+  - "0.0.0.0"
+  - "--port"
+  - "8000"
+
+env:
+  - name: "DATABRICKS_WAREHOUSE_ID"
+    value: "960301858d2768fd"
+  - name: "LLM_ENDPOINT"
+    value: "databricks-claude-sonnet-4"
+  - name: "GENIE_SPACE_ID"
+    value: "01f15916a44e1495a61cb48794045b37"
+  - name: "CATALOG"
+    value: "serverless_stable_rtpa_catalog"
+  - name: "SCHEMA"
+    value: "gepp_audience_intelligence"
