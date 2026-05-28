@@ -1,6 +1,6 @@
 """
-GEPP Audience Intelligence Multi-Agent Core (v2)
-Estructura GEPP: región, territorio, CEDIS, canal de venta, estrategia comercial.
+CPG Audience Intelligence Multi-Agent Core (v2)
+estructura de la embotelladora: región, territorio, CEDIS, canal de venta, estrategia comercial.
 """
 from __future__ import annotations
 
@@ -117,7 +117,7 @@ def _b(v: Optional[bool]) -> str:
 
 @dataclass
 class AudienceFilters:
-    # GEPP organizational
+    # CPG organizational
     regions: Optional[list[str]] = None
     territorios: Optional[list[str]] = None
     cedis_list: Optional[list[str]] = None
@@ -241,11 +241,11 @@ def llm_chat(messages: list[dict[str, str]], max_tokens: int = 1500, tools: Opti
     return data
 
 
-SUPERVISOR_SYSTEM = """Eres el Supervisor Agent de GEPP Audience Intelligence (embotelladora Pepsi MX).
+SUPERVISOR_SYSTEM = """Eres el Supervisor Agent de CPG Audience Intelligence (embotelladora Pepsi MX).
 
 Tu rol: traducir la pregunta del usuario (español MX, tuteo) a un plan estructurado que invoque las herramientas correctas.
 
-ESTRUCTURA ORGANIZACIONAL GEPP:
+ESTRUCTURA ORGANIZACIONAL CPG:
 - Regiones (5): METRO, BAJIO, CENTRO, PACIFICO, NORTE.
 - Territorios (17): CDMX Norte, CDMX Sur, Naucalpan, Ecatepec, León, Querétaro, Irapuato, Puebla, Veracruz Norte, Xalapa, Guadalajara, Vallarta, Cancún, Monterrey, Saltillo-Torreón, Chihuahua-Juárez, Hermosillo-Tijuana.
 - CEDIS (~32): ej. CEDIS Apodaca, CEDIS Vallejo, CEDIS León Norte.
@@ -311,7 +311,7 @@ Para CADA pregunta devuelve JSON:
 - NO inventes filtros. Responde SOLO con el JSON."""
 
 
-SYNTHESIS_SYSTEM = """Eres un trade marketer senior de GEPP (embotelladora Pepsi MX).
+SYNTHESIS_SYSTEM = """Eres un trade marketer senior de CPG (embotelladora Pepsi MX).
 Recibes la pregunta original y resultados de tools deterministas.
 
 Redacta respuesta concisa (3-5 oraciones + bullets) que:

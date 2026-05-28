@@ -25,7 +25,7 @@ from backend.agent_core import (
 
 FRONTEND_DIR = Path(__file__).parent / "frontend"
 
-app = FastAPI(title="GEPP Audience Intelligence · Bebidas MX")
+app = FastAPI(title="CPG Audience Intelligence · Bebidas MX")
 
 
 class AskRequest(BaseModel):

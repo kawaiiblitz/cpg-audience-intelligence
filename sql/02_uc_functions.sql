@@ -2,7 +2,7 @@
 -- audience_size
 -- ====================================================================
 CREATE OR REPLACE FUNCTION serverless_stable_rtpa_catalog.gepp_audience_intelligence.audience_size(
-  regions ARRAY<STRING> DEFAULT NULL COMMENT 'Región GEPP: METRO, BAJIO, CENTRO, PACIFICO, NORTE',
+  regions ARRAY<STRING> DEFAULT NULL COMMENT 'Región: METRO, BAJIO, CENTRO, PACIFICO, NORTE',
   territorios ARRAY<STRING> DEFAULT NULL COMMENT 'Territorio (ej. León, Monterrey, CDMX Norte)',
   cedis_list ARRAY<STRING> DEFAULT NULL COMMENT 'CEDIS específicos (ej. CEDIS Apodaca)',
   sales_channels ARRAY<STRING> DEFAULT NULL COMMENT 'Canal: Moderno, Tradicional, Hogar, On Premise, Cuentas Clave',
@@ -35,7 +35,7 @@ CREATE OR REPLACE FUNCTION serverless_stable_rtpa_catalog.gepp_audience_intellig
 RETURNS STRUCT<segment_count: BIGINT, total_population: BIGINT, pct_of_population: DOUBLE>
 DETERMINISTIC
 READS SQL DATA
-COMMENT 'Tamaño de audiencia de consumidores GEPP. Filtra por región, territorio, canal de venta, estrategia comercial, portafolio Pepsi, formato, etc.'
+COMMENT 'Tamaño de audiencia de consumidores CPG. Filtra por región, territorio, canal de venta, estrategia comercial, portafolio Pepsi, formato, etc.'
 RETURN ((
   SELECT STRUCT(
     COUNT(*) AS segment_count,
@@ -344,11 +344,11 @@ RETURN (
     ROUND(n * 1.0 / (SELECT n FROM total), 4) AS share_of_segment,
     ROUND(eng, 4) AS expected_engagement,
     CASE
-      WHEN sales_channel = 'Tradicional' THEN 'Trade DSD: rutas frescas, refrigerador GEPP exclusivo, material PDV, promo combo tiendita'
+      WHEN sales_channel = 'Tradicional' THEN 'Trade DSD: rutas frescas, refrigerador CPG exclusivo, material PDV, promo combo tiendita'
       WHEN sales_channel = 'Moderno' THEN 'Trade conveniencia: tag góndola en OXXO, end-cap super, alianza con sub-canal específico'
       WHEN sales_channel = 'Cuentas Clave' THEN 'Trade cuentas clave: end-cap Walmart/Costco, promo multi-pack, negociación central, monto mínimo'
       WHEN sales_channel = 'On Premise' THEN 'Trade on-premise: dispensador en restaurante/bar, alianza con cadena, menú combo, sampling en evento'
-      WHEN sales_channel = 'Hogar' THEN 'Digital: push en app GEPP, WhatsApp commerce, partnership con plataformas delivery (Rappi/Uber/Cornershop)'
+      WHEN sales_channel = 'Hogar' THEN 'Digital: push en app de la embotelladora, WhatsApp commerce, partnership con plataformas delivery (Rappi/Uber/Cornershop)'
       ELSE 'Canal mixto'
     END AS recommendation
   FROM by_channel
@@ -494,7 +494,7 @@ RETURNS TABLE(
   )
 DETERMINISTIC
 READS SQL DATA
-COMMENT 'Compara métricas de consumo entre dos segmentos GEPP (gasto, unidades, %Pepsi/Coca, engagement).'
+COMMENT 'Compara métricas de consumo entre dos segmentos CPG (gasto, unidades, %Pepsi/Coca, engagement).'
 RETURN (
   WITH a AS (
     SELECT * FROM serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes

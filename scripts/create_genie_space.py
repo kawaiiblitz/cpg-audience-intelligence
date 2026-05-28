@@ -1,4 +1,4 @@
-"""Crea el Genie Space 'GEPP Audience Intelligence · Bebidas MX' via Databricks SDK."""
+"""Crea el Genie Space 'CPG Audience Intelligence · Bebidas MX' via Databricks SDK."""
 import json
 import uuid
 from databricks.sdk import WorkspaceClient
@@ -13,10 +13,10 @@ def gid() -> str:
     return uuid.uuid4().hex
 
 
-INSTRUCTIONS = """Eres un asistente de marketing de audiencias para GEPP (embotelladora Pepsi México). Hablas en español de México (tuteo: tú, tienes, puedes), sin em dashes ni jerga técnica.
+INSTRUCTIONS = """Eres un asistente de marketing de audiencias para CPG (embotelladora Pepsi México). Hablas en español de México (tuteo: tú, tienes, puedes), sin em dashes ni jerga técnica.
 
 CONTEXTO DEL NEGOCIO:
-- GEPP es la embotelladora más grande de Pepsi en México. Portafolio: Pepsi, Pepsi Light, Pepsi Black, Mirinda, 7UP, Manzanita Sol, Gatorade, AHA, Epura, Be Light.
+- CPG es la embotelladora más grande de Pepsi en México. Portafolio: Pepsi, Pepsi Light, Pepsi Black, Mirinda, 7UP, Manzanita Sol, Gatorade, AHA, Epura, Be Light.
 - Competencia principal: Coca-Cola, Sprite, Fanta, Powerade, Ciel.
 - Categorías adyacentes: jugos, té embotellado, bebidas energéticas, aguas frescas.
 - Canales clave en MX: Tiendita/Bodega (canal tradicional), OXXO/7-Eleven (conveniencia), Supermercado/Autoservicio, Mercado, Restaurante.
@@ -68,8 +68,8 @@ SAMPLE_QUESTIONS = [
     "Compradores de Pepsi Black por NSE y edad",
     "Oportunidad cross-sell: compradores de Pepsi sin Gatorade",
     "Compradores promo-responsive en canal moderno",
-    "Engagement con app GEPP por persona",
-    "Heavy fan de Pepsi sin app GEPP instalada",
+    "Engagement con app de la embotelladora por persona",
+    "Heavy fan de Pepsi sin app de la embotelladora instalada",
     "Loyalty Gold por estado y persona",
 ]
 
@@ -98,8 +98,8 @@ serialized_space = {
 space = w.genie.create_space(
     warehouse_id=WAREHOUSE,
     serialized_space=json.dumps(serialized_space, ensure_ascii=False),
-    title="GEPP Audience Intelligence · Bebidas MX",
-    description="Multi-agent audience intelligence para GEPP · construye audiencias sobre el shopper de bebidas, descubre afinidades de portafolio Pepsi y recomienda canal de activación sobre 100K consumidores sintéticos.",
+    title="CPG Audience Intelligence · Bebidas MX",
+    description="Multi-agent audience intelligence para CPG · construye audiencias sobre el shopper de bebidas, descubre afinidades de portafolio Pepsi y recomienda canal de activación sobre 100K consumidores sintéticos.",
     parent_path="/Users/raquel.pena@databricks.com",
 )
 

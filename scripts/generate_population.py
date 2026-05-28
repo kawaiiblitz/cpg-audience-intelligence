@@ -1,6 +1,6 @@
 """
-Generador de población sintética para GEPP Audience Intelligence.
-CPG / Bebidas México · 100K consumidores · estructura organizacional GEPP real.
+Generador de población sintética para CPG Audience Intelligence.
+CPG / Bebidas México · 100K consumidores · estructura organizacional de la embotelladora real.
 
 Output: data/population_attributes.parquet
 """
@@ -25,7 +25,7 @@ def weighted(values, weights, n=N):
 
 
 # ---------------------------------------------------------------------
-# Estructura organizacional GEPP: Región → Territorio → CEDIS
+# Estructura organizacional de la embotelladora: Región → Territorio → CEDIS
 # ---------------------------------------------------------------------
 STATE_TO_REGION = {
     "Ciudad de México": "METRO",
@@ -137,7 +137,7 @@ household_type = np.where(
 )
 
 # ---------------------------------------------------------------------
-# 2. Canal de venta GEPP (5 categorías)
+# 2. Canal de venta CPG (5 categorías)
 # ---------------------------------------------------------------------
 print("Generando canal de venta...")
 def channel_weights(nse_val):
@@ -187,7 +187,7 @@ freq_to_units = {"Diaria": 18, "3-5x semana": 10, "1-2x semana": 5, "Quincenal":
 weekly_units_base = np.array([freq_to_units[f] for f in buy_frequency])
 weekly_beverage_units = np.maximum(1, weekly_units_base + rng.integers(-3, 6, N) + (household_size - 2))
 
-# Presentaciones reales de portafolio Pepsi GEPP
+# Presentaciones reales de portafolio Pepsi CPG
 preferred_format = weighted(
     ["355ml lata", "600ml PET", "1L PET", "2L PET", "3L PET",
      "235ml mini lata", "500ml vidrio retornable", "355ml vidrio nostalgia"],
@@ -204,7 +204,7 @@ buys_mini_lata = (preferred_format == "235ml mini lata") | (rng.random(N) < 0.06
 buys_vidrio_retornable = (preferred_format == "500ml vidrio retornable") | (rng.random(N) < 0.08)
 
 # ---------------------------------------------------------------------
-# 4. Portafolio Pepsi (GEPP)
+# 4. Portafolio Pepsi (CPG)
 # ---------------------------------------------------------------------
 print("Generando consumo Pepsi y competencia...")
 buys_pepsi = rng.random(N) < 0.55
@@ -280,7 +280,7 @@ is_pepsi_active = buys_pepsi & (last_pepsi_purchase_days <= 14)
 is_pepsi_heavy = is_pepsi_active & (weekly_beverage_units > 8) & (cola_units >= 2)
 
 # ---------------------------------------------------------------------
-# 6. Estrategia comercial GEPP (derivada per consumer / PDV asociado)
+# 6. Estrategia comercial CPG (derivada per consumer / PDV asociado)
 # ---------------------------------------------------------------------
 print("Derivando estrategia comercial...")
 # Blindar: heavy buyer + Pepsi loyal + alto valor
@@ -327,7 +327,7 @@ consumes_breakfast = rng.random(N) < 0.18
 consumes_workout = sport_drink_user & (rng.random(N) < 0.7)
 weekend_heavy = rng.random(N) < 0.45
 
-# Engagement digital con GEPP
+# Engagement digital con CPG
 print("Generando engagement digital...")
 has_gepp_app = (age < 50) & (rng.random(N) < 0.18)
 loyalty_member = has_gepp_app & (rng.random(N) < 0.7)
@@ -414,7 +414,7 @@ first_purchase_date = np.array(
     [(today - timedelta(days=int(d))).date().isoformat() for d in days_since_first_purchase]
 )
 
-consumer_id = np.array([f"GEPP{1_000_000 + i:08d}" for i in range(N)])
+consumer_id = np.array([f"CPG{1_000_000 + i:08d}" for i in range(N)])
 
 # ---------------------------------------------------------------------
 # Construir DataFrame
@@ -425,7 +425,7 @@ df = pl.DataFrame({
     "age": age,
     "age_range": age_range,
     "gender": gender,
-    # Geografía GEPP
+    # Geografía CPG
     "region": region,
     "territorio": territorio,
     "cedis": cedis,
@@ -495,7 +495,7 @@ df = pl.DataFrame({
     "brand_loyal": brand_loyal,
     "trend_seeker": trend_seeker,
     "pairs_with_snacks": pairs_with_snacks,
-    # Estrategia comercial GEPP
+    # Estrategia comercial CPG
     "pdv_strategy": pdv_strategy,
     # Momentos
     "consumes_with_food": consumes_with_food,
@@ -503,7 +503,7 @@ df = pl.DataFrame({
     "consumes_breakfast": consumes_breakfast,
     "consumes_workout": consumes_workout,
     "weekend_heavy": weekend_heavy,
-    # GEPP digital
+    # CPG digital
     "has_gepp_app": has_gepp_app,
     "loyalty_member": loyalty_member,
     "loyalty_tier": loyalty_tier,
@@ -543,4 +543,4 @@ print(f"\nPepsi buyers: {df['buys_pepsi'].sum():,} ({df['buys_pepsi'].mean()*100
 print(f"Coca buyers: {df['buys_coca'].sum():,} ({df['buys_coca'].mean()*100:.1f}%)")
 print(f"Pepsi lapsed: {df['is_pepsi_lapsed'].sum():,}")
 print(f"Pepsi heavy: {df['is_pepsi_heavy'].sum():,}")
-print(f"GEPP app users: {df['has_gepp_app'].sum():,}")
+print(f"CPG app users: {df['has_gepp_app'].sum():,}")

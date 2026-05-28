@@ -1,14 +1,14 @@
-# GEPP Audience Intelligence
+# CPG Audience Intelligence
 
-Demo de un chatbot de inteligencia de audiencias para **GEPP** (la embotelladora
-de Pepsi más grande de México). Le preguntas en lenguaje natural por un segmento
-de consumidores (por región, canal, estrategia de punto de venta, portafolio,
-etc.) y te regresa el tamaño de la audiencia, qué la hace única, por qué canal
+Demo de un chatbot de inteligencia de audiencias para una **embotelladora CPG**
+de bebidas en México. Le preguntas en lenguaje natural por un segmento de
+consumidores (por región, canal, estrategia de punto de venta, portafolio, etc.)
+y te regresa el tamaño de la audiencia, qué la hace única, por qué canal
 activarla y una muestra de consumidores.
 
 Todo corre como una **Databricks App** (FastAPI) sobre Unity Catalog, con datos
-sintéticos de 100K consumidores y la estructura organizacional real de GEPP
-(regiones METRO, BAJIO, CENTRO, PACIFICO, NORTE; territorios; CEDIS).
+sintéticos de 100K consumidores y una estructura organizacional típica de
+embotelladora (regiones METRO, BAJIO, CENTRO, PACIFICO, NORTE; territorios; CEDIS).
 
 ## Cómo funciona
 
@@ -106,11 +106,11 @@ Ejemplos de preguntas (en la UI o por `POST /api/ask`):
 
 - "Consumidores con estrategia Blindar en la región NORTE"
 - "¿Qué hace únicos a los compradores heavy de Pepsi en el canal Tradicional?"
-- "¿Por qué canal activo a los consumidores con app GEPP y membresía de lealtad?"
+- "¿Por qué canal activo a los consumidores con app de la embotelladora y membresía de lealtad?"
 - "Dame 10 ejemplos de consumidores lapsados de Pepsi en BAJIO"
 
 ## Notas
 
-- Datos 100% sintéticos. No hay información real de consumidores de GEPP.
+- Datos 100% sintéticos. No hay información real de consumidores.
 - Idioma de la app y del Genie Space: español de México.
 - Hecho como demo de Field Engineering (Databricks).

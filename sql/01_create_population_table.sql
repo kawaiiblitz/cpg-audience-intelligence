@@ -1,11 +1,11 @@
--- Recrear tabla Delta population_attributes con estructura GEPP refinada.
+-- Recrear tabla Delta population_attributes con estructura de la embotelladora refinada.
 
 DROP TABLE IF EXISTS serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes;
 
 CREATE TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes
 USING DELTA
 TBLPROPERTIES (delta.dataSkippingNumIndexedCols = 64)
-COMMENT 'Tabla maestra de consumidores GEPP · 100K consumidores con estructura organizacional GEPP (región, territorio, CEDIS), canal de venta (Moderno, Tradicional, Hogar, On Premise, Cuentas Clave), estrategia comercial (Blindar, Impulsar, Desarrollar, Conservar), portafolio Pepsi con presentaciones reales (235ml hasta 3L), competencia Coca-Cola y atributos de comportamiento, momentos de consumo y engagement con app GEPP.'
+COMMENT 'Tabla maestra de consumidores CPG · 100K consumidores con estructura organizacional de la embotelladora (región, territorio, CEDIS), canal de venta (Moderno, Tradicional, Hogar, On Premise, Cuentas Clave), estrategia comercial (Blindar, Impulsar, Desarrollar, Conservar), portafolio Pepsi con presentaciones reales (235ml hasta 3L), competencia Coca-Cola y atributos de comportamiento, momentos de consumo y engagement con app de la embotelladora.'
 AS
 SELECT * FROM read_files(
   '/Volumes/serverless_stable_rtpa_catalog/gepp_audience_intelligence/raw/population_attributes.parquet',
@@ -16,7 +16,7 @@ ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN age COMMENT 'Edad en años';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN age_range COMMENT 'Rango: 15-17, 18-24, 25-34, 35-44, 45-54, 55-64, 65+';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN gender COMMENT 'F, M, Otro';
-ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN region COMMENT 'Región GEPP: METRO, BAJIO, CENTRO, PACIFICO, NORTE';
+ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN region COMMENT 'Región: METRO, BAJIO, CENTRO, PACIFICO, NORTE';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN territorio COMMENT 'Territorio dentro de la región (ej. León, Monterrey, CDMX Norte). 17 territorios.';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN cedis COMMENT 'Centro de Distribución (CEDIS) asignado al consumidor. ~32 CEDIS.';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN state COMMENT 'Estado de residencia MX';
@@ -27,7 +27,7 @@ ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN household_type COMMENT 'Tipo de hogar: Familia grande con hijos, Familia con hijos, Hogar individual, Pareja sin hijos, Hogar compartido';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN nse COMMENT 'NSE (AMAI MX): A/B, C+, C, C-, D+, D, E';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN income_monthly_mxn COMMENT 'Ingreso mensual del hogar en MXN';
-ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN sales_channel COMMENT 'Canal de venta GEPP: Moderno (super/OXXO), Tradicional (tiendita/bodega/mercado), Hogar (e-commerce/delivery), On Premise (restaurante/bar), Cuentas Clave (Walmart/Costco/Soriana)';
+ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN sales_channel COMMENT 'Canal de venta CPG: Moderno (super/OXXO), Tradicional (tiendita/bodega/mercado), Hogar (e-commerce/delivery), On Premise (restaurante/bar), Cuentas Clave (Walmart/Costco/Soriana)';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN sub_channel COMMENT 'Sub-canal específico dentro del canal de venta';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN buy_frequency COMMENT 'Frecuencia: Diaria, 3-5x semana, 1-2x semana, Quincenal, Mensual u ocasional';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN weekly_beverage_units COMMENT 'Unidades de bebida compradas por semana';
@@ -77,16 +77,16 @@ ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN brand_loyal COMMENT 'TRUE si tiene alta lealtad a marca';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN trend_seeker COMMENT 'TRUE si busca tendencias / nuevos productos';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN pairs_with_snacks COMMENT 'TRUE si consume con botana';
-ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN pdv_strategy COMMENT 'Estrategia comercial GEPP asignada al consumidor/PDV: Blindar (heavy loyalist Pepsi), Impulsar (switcher con volumen para convertir), Desarrollar (lapsado/light/no engaged para crecer), Conservar (regular buyer Pepsi loyal)';
+ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN pdv_strategy COMMENT 'Estrategia comercial CPG asignada al consumidor/PDV: Blindar (heavy loyalist Pepsi), Impulsar (switcher con volumen para convertir), Desarrollar (lapsado/light/no engaged para crecer), Conservar (regular buyer Pepsi loyal)';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN consumes_with_food COMMENT 'TRUE si consume con comida';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN consumes_party COMMENT 'TRUE si consume en fiestas/reuniones';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN consumes_breakfast COMMENT 'TRUE si consume en desayuno';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN consumes_workout COMMENT 'TRUE si consume al ejercitar';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN weekend_heavy COMMENT 'TRUE si concentra consumo en fin de semana';
-ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN has_gepp_app COMMENT 'TRUE si tiene app GEPP instalada';
-ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN loyalty_member COMMENT 'TRUE si es miembro del programa de lealtad GEPP';
+ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN has_gepp_app COMMENT 'TRUE si tiene app de la embotelladora instalada';
+ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN loyalty_member COMMENT 'TRUE si es miembro del programa de lealtad';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN loyalty_tier COMMENT 'Tier loyalty: No miembro, Bronze, Silver, Gold';
-ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN app_sessions_monthly COMMENT 'Sesiones mensuales en app GEPP';
+ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN app_sessions_monthly COMMENT 'Sesiones mensuales en app de la embotelladora';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN email_opt_in COMMENT 'TRUE si acepta email';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN whatsapp_opt_in COMMENT 'TRUE si acepta WhatsApp';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN sms_opt_in COMMENT 'TRUE si acepta SMS';
@@ -98,7 +98,7 @@ ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN persona_tag COMMENT 'Persona derivada: Joven Energético, Health Switcher, Wellness Maduro, Familia Refresquera, Deportista Activo, Pepsi Heavy Loyalist, Cola Heavy User, Maduro Tradicional, Mainstream Bebida';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN lifecycle_stage COMMENT 'Etapa: Heavy fan, Loyalty active, Engaged digital, Regular buyer, Light buyer, Lapsado, No engaged';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN ltv_score COMMENT 'LTV anual estimado (basado en spend)';
-ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN acquisition_channel COMMENT 'Canal de adquisición a app GEPP';
+ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN acquisition_channel COMMENT 'Canal de adquisición a app de la embotelladora';
 ALTER TABLE serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_attributes ALTER COLUMN first_purchase_date COMMENT 'Fecha primera compra';
 
 CREATE OR REPLACE VIEW serverless_stable_rtpa_catalog.gepp_audience_intelligence.population_baseline_rates

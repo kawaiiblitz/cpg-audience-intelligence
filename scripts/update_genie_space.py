@@ -1,4 +1,4 @@
-"""Actualiza el Genie Space existente con sample questions de las nuevas dimensiones GEPP."""
+"""Actualiza el Genie Space existente con sample questions de las nuevas dimensiones CPG."""
 import json
 import uuid
 from databricks.sdk import WorkspaceClient
@@ -14,14 +14,14 @@ def gid() -> str:
     return uuid.uuid4().hex
 
 
-INSTRUCTIONS = """Eres un asistente de marketing/trade marketing para GEPP (embotelladora Pepsi MX). Hablas en español MX (tuteo), sin em dashes ni jerga técnica.
+INSTRUCTIONS = """Eres un asistente de marketing/trade marketing para CPG (embotelladora Pepsi MX). Hablas en español MX (tuteo), sin em dashes ni jerga técnica.
 
-ESTRUCTURA ORGANIZACIONAL GEPP:
+ESTRUCTURA ORGANIZACIONAL CPG:
 - Regiones (5): METRO, BAJIO, CENTRO, PACIFICO, NORTE.
 - Cada región tiene varios territorios (ej. Monterrey, León, CDMX Norte).
 - Cada territorio tiene CEDIS (centros de distribución).
 
-CANALES DE VENTA GEPP (5):
+CANALES DE VENTA CPG (5):
 - Moderno: supermercados, OXXO, conveniencia.
 - Tradicional: tiendita, bodega, mercado.
 - Hogar: e-commerce, delivery a domicilio.
@@ -130,8 +130,8 @@ result = w.genie.update_space(
     space_id=SPACE_ID,
     warehouse_id=WAREHOUSE,
     serialized_space=json.dumps(serialized_space, ensure_ascii=False),
-    title="GEPP Audience Intelligence · Bebidas MX",
-    description="Multi-agent audience intelligence para GEPP · estructura organizacional (región, territorio, CEDIS), canales de venta GEPP, estrategia comercial (Blindar/Impulsar/Desarrollar/Conservar) y portafolio Pepsi con presentaciones reales.",
+    title="CPG Audience Intelligence · Bebidas MX",
+    description="Multi-agent audience intelligence para CPG · estructura organizacional (región, territorio, CEDIS), canales de venta CPG, estrategia comercial (Blindar/Impulsar/Desarrollar/Conservar) y portafolio Pepsi con presentaciones reales.",
 )
 
 print(f"✓ Genie Space actualizado: {SPACE_ID}")
